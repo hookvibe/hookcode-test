@@ -8,11 +8,12 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       port: Number(env.PORT) || 5173,
-      host: true
+      host: true,
     },
     preview: {
       port: Number(env.PORT) || 8010,
-      host: true
+      host: true,
+      allowedHosts: true
     }
   };
 });
