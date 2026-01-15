@@ -34,7 +34,9 @@ jobs:
       run: |
         PORT=${{ github.event.inputs.frontend_port || '8010' }}
         echo "Starting preview server on port $PORT with PM2"
-        PORT=$PORT pm2 start "pnpm run preview -- --port $PORT --host 0.0.0.0" --name hookcode-test
+        # 直接用本地 vite 脚本启动，避免 PM2 守护进程环境里找不到 pnpm 而秒退
+        pm2 start node --name hookcode-test --update-env -- \
+          ./node_modules/vite/bin/vite.js preview --port $PORT --host 0.0.0.0
         pm2 save
         sleep 5
         
