@@ -1,0 +1,55 @@
+name: CI/CD to Self-Hosted Server
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      frontend_port:
+        description: 'Frontend port (default: 8010)'
+        required: false
+        default: '8010'
+
+jobs:
+  build-and-deploy:
+    runs-on: [self-hosted]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Build project
+      run: pnpm run build
+      
+    - name: Stop existing server
+      run: |
+        PORT=${{ github.event.inputs.frontend_port || '8010' }}
+        echo "Stopping any existing process on port $PORT"
+        lsof -ti:$PORT | xargs kill -9 || true
+        
+    - name: Start preview server
+      run: |
+        PORT=${{ github.event.inputs.frontend_port || '8010' }}
+        echo "Starting preview server on port $PORT"
+        nohup pnpm run preview -- --port $PORT --host 0.0.0.0 > preview.log 2>&1 &
+        echo $! > preview.pid
+        sleep 5
+        
+    - name: Health check
+      run: |
+        PORT=${{ github.event.inputs.frontend_port || '8010' }}
+        curl -f http://localhost:$PORT || exit 1
+        echo "✅ Server is running successfully on port $PORT"
+        
+    - name: Display server info
+      run: |
+        PORT=${{ github.event.inputs.frontend_port || '8010' }}
+        PID=$(cat preview.pid)
+        echo "Server PID: $PID"
+        echo "Server Port: $PORT"
+        echo "Server URL: http://localhost:$PORT"

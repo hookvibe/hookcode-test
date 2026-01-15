@@ -1,4 +1,37 @@
-> test [hookcode](https://github.com/hookvibe/hookcode)
+> test [hookcode][hookcode]
 
-# HookCode-test issue system
-> This repository is used to test hookcode and implements an issue system.
+# HookCode Issue System (Frontend)
+
+A minimal, modern GitHub-style issue system UI built with React + TypeScript. This repo focuses on the **frontend only** and provides a clean layout, filters, and detail preview for issues.
+
+- Light / Dark / System theme support
+- i18n for English and Chinese
+- Clear type definitions and mock data for easy API integration
+
+## Tech Stack
+
+- React 18
+- TypeScript
+- Vite
+
+## Structure
+
+- `src/App.tsx`: page composition and state management
+- `src/components/`: UI components (header, sidebar, list, detail panel)
+- `src/data/issues.ts`: mock issue data
+- `src/i18n.tsx`: translations and locale helpers
+- `src/styles.css`: theme tokens and UI styles
+
+## Run (optional)
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+中文说明请查看 [README.zh.md][readme-zh]
+
+[readme-zh]: README.zh.md
+[hookcode]: https://github.com/hookvibe/hookcode
