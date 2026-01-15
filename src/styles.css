@@ -582,6 +582,7 @@ select:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -606,6 +607,8 @@ select:focus-visible {
   background: var(--success-soft);
   color: var(--success);
   font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .status-pill.closed {
@@ -646,6 +649,7 @@ select:focus-visible {
   color: var(--label);
   font-size: 0.75rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .issue-side {
@@ -712,6 +716,7 @@ select:focus-visible {
   justify-content: space-between;
   gap: 12px;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .detail-kicker {
