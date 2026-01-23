@@ -268,6 +268,11 @@ select:focus-visible {
   color: var(--primary);
 }
 
+.ghost-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .ghost-button.full {
   width: 100%;
   justify-content: center;
@@ -296,6 +301,14 @@ select:focus-visible {
   grid-template-columns: 260px minmax(0, 1fr) 320px;
   gap: 24px;
   margin-top: 28px;
+}
+
+.layout.layout-two {
+  grid-template-columns: 260px minmax(0, 1fr);
+}
+
+.layout.layout-single {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .sidebar,
@@ -765,6 +778,24 @@ select:focus-visible {
   font-size: 0.82rem;
 }
 
+.detail-page-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.detail-page-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.detail-page-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -778,6 +809,10 @@ select:focus-visible {
 
 @media (max-width: 1200px) {
   .layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .layout.layout-two {
     grid-template-columns: 220px minmax(0, 1fr);
   }
 
@@ -802,6 +837,10 @@ select:focus-visible {
   }
 
   .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .layout.layout-two {
     grid-template-columns: 1fr;
   }
 
