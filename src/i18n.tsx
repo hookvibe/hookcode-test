@@ -88,6 +88,18 @@ const translations = {
       comments: '评论',
       viewDiscussion: '查看完整讨论'
     },
+    detailPage: {
+      kicker: 'Issue 详情页',
+      back: '返回列表',
+      previous: '上一个',
+      next: '下一个',
+      notFoundTitle: '未找到该 Issue',
+      notFoundBody: '请从列表重新进入，或检查链接是否正确。',
+      discussionTitle: '讨论（静态占位）',
+      discussionMeta: (count: number) => `共 ${count} 条评论`,
+      discussionBody: '这里是讨论区域的静态占位内容，后续可接入后端/接口展示真实评论与时间线。',
+      reply: '回复'
+    },
     empty: {
       title: '没有匹配的 Issue',
       body: '尝试调整筛选条件或清空搜索关键词。',
@@ -188,6 +200,18 @@ const translations = {
       updated: 'Updated',
       comments: 'Comments',
       viewDiscussion: 'View full discussion'
+    },
+    detailPage: {
+      kicker: 'Issue Details',
+      back: 'Back to list',
+      previous: 'Previous',
+      next: 'Next',
+      notFoundTitle: 'Issue not found',
+      notFoundBody: 'Go back to the list or double-check the link.',
+      discussionTitle: 'Discussion (static placeholder)',
+      discussionMeta: (count: number) => `${count} comments`,
+      discussionBody: 'This is a static placeholder. You can wire it up to real comments and timeline later.',
+      reply: 'Reply'
     },
     empty: {
       title: 'No matching issues',
