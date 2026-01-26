@@ -5,6 +5,7 @@
 A minimal, modern GitHub-style issue system UI built with React + TypeScript. This repo focuses on the **frontend only** and provides a clean layout, filters, and detail preview for issues.
 
 Test commit: this line is added to verify the commit pipeline.
+Test commit 2: added on 2026-01-27 to verify direct-to-main submission.
 
 - Light / Dark / System theme support
 - i18n for English and Chinese
