@@ -4,6 +4,8 @@
 
 A minimal, modern GitHub-style issue system UI built with React + TypeScript. This repo focuses on the **frontend only** and provides a clean layout, filters, and detail preview for issues.
 
+Test commit: this line is added to verify the commit pipeline.
+
 - Light / Dark / System theme support
 - i18n for English and Chinese
 - Clear type definitions and mock data for easy API integration
@@ -35,4 +37,3 @@ npm run dev
 
 [readme-zh]: README.zh.md
 [hookcode]: https://github.com/hookvibe/hookcode
-
