@@ -1,0 +1,15 @@
+version: 1
+
+dependency:
+  failureMode: soft
+  runtimes:
+    - language: node
+      install: "pnpm install --frozen-lockfile"
+
+preview:
+  instances:
+    - name: app
+      command: "pnpm dev"
+      workdir: "."
+      port: 5173
+      readyPattern: "Local:"
