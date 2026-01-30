@@ -10,6 +10,6 @@ preview:
   instances:
     - name: app
       command: "pnpm dev -- --port {{PORT}}"
-      workdir: "frontend"
+      workdir: "."
       env:
-        PORT: "{{PORT}}"
+        PUBLIC_ORIGIN: "http://127.0.0.1:{{PORT}}"
