@@ -9,7 +9,7 @@ dependency:
 preview:
   instances:
     - name: app
-      command: "pnpm dev"
-      workdir: "."
-      port: 5173
-      readyPattern: "Local:"
+      command: "pnpm dev -- --port {{PORT}}"
+      workdir: "frontend"
+      env:
+        PORT: "{{PORT}}"
