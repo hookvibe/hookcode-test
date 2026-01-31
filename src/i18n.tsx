@@ -1,6 +1,26 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import type { Language, LocalizedString } from './types';
 
+const labelNamesZh: Record<string, string> = {
+  'label-bug': '缺陷',
+  'label-ui': '界面',
+  'label-perf': '性能',
+  'label-security': '安全',
+  'label-docs': '文档',
+  'label-feature': '功能',
+  'label-design': '设计'
+};
+
+const labelNamesEn: Record<string, string> = {
+  'label-bug': 'Bug',
+  'label-ui': 'UI',
+  'label-perf': 'Performance',
+  'label-security': 'Security',
+  'label-docs': 'Docs',
+  'label-feature': 'Feature',
+  'label-design': 'Design'
+};
+
 const translations = {
   zh: {
     header: {
@@ -91,6 +111,7 @@ const translations = {
     detailPage: {
       kicker: 'Issue 详情页',
       back: '返回列表',
+      backToIssue: '返回 Issue',
       previous: '上一个',
       next: '下一个',
       notFoundTitle: '未找到该 Issue',
@@ -98,6 +119,14 @@ const translations = {
       discussionTitle: '讨论（静态占位）',
       discussionMeta: (count: number) => `共 ${count} 条评论`,
       discussionBody: '这里是讨论区域的静态占位内容，后续可接入后端/接口展示真实评论与时间线。',
+      discussionSampleNote: '下方为静态示例评论（用于占位展示）。',
+      discussionSampleAuthorAction: (name: string) => `${name} 创建了该 Issue`,
+      discussionSampleAssigneeAction: (name: string) => `${name} 已确认并开始处理`,
+      discussionSampleSystemAction: '系统自动记录：后续可接入时间线/事件流。',
+      discussionSampleText1: '我们先对现象做归因，明确复现路径与影响范围。',
+      discussionSampleText2: '我会补充埋点与日志，优先把关键链路的状态同步出来。',
+      discussionSystemName: '系统',
+      replyPlaceholder: '回复功能后续接入，这里先做静态占位。',
       reply: '回复'
     },
     empty: {
@@ -105,15 +134,7 @@ const translations = {
       body: '尝试调整筛选条件或清空搜索关键词。',
       action: '创建第一个 Issue'
     },
-    labelNames: {
-      'label-bug': '缺陷',
-      'label-ui': '界面',
-      'label-perf': '性能',
-      'label-security': '安全',
-      'label-docs': '文档',
-      'label-feature': '功能',
-      'label-design': '设计'
-    }
+    labelNames: labelNamesZh
   },
   en: {
     header: {
@@ -204,6 +225,7 @@ const translations = {
     detailPage: {
       kicker: 'Issue Details',
       back: 'Back to list',
+      backToIssue: 'Back to issue',
       previous: 'Previous',
       next: 'Next',
       notFoundTitle: 'Issue not found',
@@ -211,6 +233,14 @@ const translations = {
       discussionTitle: 'Discussion (static placeholder)',
       discussionMeta: (count: number) => `${count} comments`,
       discussionBody: 'This is a static placeholder. You can wire it up to real comments and timeline later.',
+      discussionSampleNote: 'Below are static sample comments (placeholder only).',
+      discussionSampleAuthorAction: (name: string) => `${name} opened this issue`,
+      discussionSampleAssigneeAction: (name: string) => `${name} acknowledged and started investigating`,
+      discussionSampleSystemAction: 'System note: timeline/events can be wired here later.',
+      discussionSampleText1: 'Let’s first identify a reliable reproduction path and scope the impact.',
+      discussionSampleText2: 'I will add logging/telemetry and share findings as soon as possible.',
+      discussionSystemName: 'System',
+      replyPlaceholder: 'Reply is coming soon — this is a static placeholder.',
       reply: 'Reply'
     },
     empty: {
@@ -218,19 +248,11 @@ const translations = {
       body: 'Try adjusting filters or clear the search.',
       action: 'Create first issue'
     },
-    labelNames: {
-      'label-bug': 'Bug',
-      'label-ui': 'UI',
-      'label-perf': 'Performance',
-      'label-security': 'Security',
-      'label-docs': 'Docs',
-      'label-feature': 'Feature',
-      'label-design': 'Design'
-    }
+    labelNames: labelNamesEn
   }
 } as const;
 
-export type Copy = typeof translations.zh;
+export type Copy = (typeof translations)[Language];
 
 export const getCopy = (language: Language): Copy => translations[language];
 

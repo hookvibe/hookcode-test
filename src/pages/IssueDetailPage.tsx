@@ -36,6 +36,7 @@ export const IssueDetailPage = ({
 
   const title = getLocalizedString(issue.title, language);
   const summary = getLocalizedString(issue.summary, language);
+  const primaryAssignee = issue.assignees[0] ?? issue.author;
 
   return (
     <>
@@ -122,11 +123,56 @@ export const IssueDetailPage = ({
           <span className="panel-meta">{copy.detailPage.discussionMeta(issue.comments)}</span>
         </div>
         <p className="panel-body">{copy.detailPage.discussionBody}</p>
-        <button className="primary-button" type="button">
-          {copy.detailPage.reply}
-        </button>
+        <p className="muted discussion-note">{copy.detailPage.discussionSampleNote}</p>
+        <ul className="discussion-list">
+          <li className="discussion-item">
+            <div className="discussion-avatar">{issue.author.name[0]}</div>
+            <div className="discussion-content">
+              <div className="discussion-top">
+                <span className="discussion-author">{issue.author.name}</span>
+                <span className="discussion-time">{formatRelativeDate(issue.createdAt, locale)}</span>
+              </div>
+              <p className="discussion-action">{copy.detailPage.discussionSampleAuthorAction(issue.author.name)}</p>
+              <p className="discussion-text">{summary}</p>
+            </div>
+          </li>
+          <li className="discussion-item">
+            <div className="discussion-avatar">{primaryAssignee.name[0]}</div>
+            <div className="discussion-content">
+              <div className="discussion-top">
+                <span className="discussion-author">{primaryAssignee.name}</span>
+                <span className="discussion-time">{formatRelativeDate(issue.updatedAt, locale)}</span>
+              </div>
+              <p className="discussion-action">
+                {copy.detailPage.discussionSampleAssigneeAction(primaryAssignee.name)}
+              </p>
+              <p className="discussion-text">{copy.detailPage.discussionSampleText1}</p>
+              <p className="discussion-text">{copy.detailPage.discussionSampleText2}</p>
+            </div>
+          </li>
+          <li className="discussion-item">
+            <div className="discussion-avatar">•</div>
+            <div className="discussion-content">
+              <div className="discussion-top">
+                <span className="discussion-author">{copy.detailPage.discussionSystemName}</span>
+                <span className="discussion-time">{formatRelativeDate(issue.updatedAt, locale)}</span>
+              </div>
+              <p className="discussion-action">{copy.detailPage.discussionSampleSystemAction}</p>
+            </div>
+          </li>
+        </ul>
+        <div className="discussion-reply">
+          <textarea
+            className="discussion-textarea"
+            disabled
+            placeholder={copy.detailPage.replyPlaceholder}
+            aria-label={copy.detailPage.replyPlaceholder}
+          />
+          <button className="primary-button" type="button" disabled>
+            {copy.detailPage.reply}
+          </button>
+        </div>
       </div>
     </>
   );
 };
-

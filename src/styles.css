@@ -796,6 +796,92 @@ select:focus-visible {
   font-size: clamp(1.4rem, 2.2vw, 2rem);
 }
 
+.discussion-note {
+  margin-top: 8px;
+}
+
+.discussion-list {
+  list-style: none;
+  margin: 14px 0 18px;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.discussion-item {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-panel);
+  background: var(--bg-soft);
+}
+
+.discussion-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--primary) 65%, transparent), rgba(56, 189, 248, 0.28));
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.discussion-content {
+  min-width: 0;
+}
+
+.discussion-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.discussion-author {
+  font-weight: 700;
+}
+
+.discussion-time {
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.discussion-action {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.discussion-text {
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.discussion-reply {
+  display: grid;
+  gap: 10px;
+}
+
+.discussion-textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-panel);
+  background: var(--bg-soft);
+  color: var(--text);
+  resize: vertical;
+}
+
+.discussion-textarea:disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
