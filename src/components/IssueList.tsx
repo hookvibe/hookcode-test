@@ -6,9 +6,10 @@ interface IssueListProps {
   issues: Issue[];
   selectedId: string;
   onSelect: (id: string) => void;
+  onCreateIssue: () => void;
 }
 
-export const IssueList = ({ issues, selectedId, onSelect }: IssueListProps) => {
+export const IssueList = ({ issues, selectedId, onSelect, onCreateIssue }: IssueListProps) => {
   const { copy } = useI18n();
 
   if (issues.length === 0) {
@@ -16,7 +17,7 @@ export const IssueList = ({ issues, selectedId, onSelect }: IssueListProps) => {
       <div className="empty-state">
         <h3>{copy.empty.title}</h3>
         <p>{copy.empty.body}</p>
-        <button className="primary-button" type="button">
+        <button className="primary-button" type="button" onClick={onCreateIssue}>
           {copy.empty.action}
         </button>
       </div>

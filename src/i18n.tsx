@@ -129,6 +129,40 @@ const translations = {
       replyPlaceholder: '回复功能后续接入，这里先做静态占位。',
       reply: '回复'
     },
+    newIssuePage: {
+      kicker: '新建 Issue',
+      title: '创建一个新的 Issue',
+      subtitle: '填写关键信息，提交后会在本地列表中生成（静态演示）。',
+      back: '返回列表',
+      formLabel: '新建 Issue 表单',
+      highlightNote: '本次构建新增：新建 Issue 页面已高亮展示（便于审阅 UI 变更）。',
+      previewLabel: '标题预览',
+      previewKicker: '预览',
+      previewFallback: '未命名 Issue',
+      fields: {
+        titleZh: '标题（中文）',
+        titleEn: '标题（英文）',
+        summaryZh: '摘要（中文）',
+        summaryEn: '摘要（英文）',
+        project: '项目',
+        priority: '优先级',
+        labels: '标签',
+        assignees: '负责人'
+      },
+      placeholders: {
+        titleZh: '例如：登录态在多标签页下异常',
+        titleEn: 'e.g. Auth state breaks across tabs',
+        summaryZh: '描述问题、复现步骤、期望结果',
+        summaryEn: 'Describe problem, repro steps, expected result',
+        project: '例如：HookCode'
+      },
+      cancel: '取消',
+      create: '创建 Issue',
+      creating: '创建中…',
+      validationTitleRequired: '请至少填写一个标题（中文或英文）。',
+      validationUserRequired: '没有可用的用户信息，无法创建 Issue。',
+      summaryFallback: '（未填写摘要）'
+    },
     empty: {
       title: '没有匹配的 Issue',
       body: '尝试调整筛选条件或清空搜索关键词。',
@@ -242,6 +276,40 @@ const translations = {
       discussionSystemName: 'System',
       replyPlaceholder: 'Reply is coming soon — this is a static placeholder.',
       reply: 'Reply'
+    },
+    newIssuePage: {
+      kicker: 'New Issue',
+      title: 'Create a new issue',
+      subtitle: 'Fill in key details. On submit, a local issue is added (static demo).',
+      back: 'Back to list',
+      formLabel: 'New issue form',
+      highlightNote: 'Build note: the New Issue page is intentionally highlighted to make UI changes obvious.',
+      previewLabel: 'Title preview',
+      previewKicker: 'Preview',
+      previewFallback: 'Untitled issue',
+      fields: {
+        titleZh: 'Title (Chinese)',
+        titleEn: 'Title (English)',
+        summaryZh: 'Summary (Chinese)',
+        summaryEn: 'Summary (English)',
+        project: 'Project',
+        priority: 'Priority',
+        labels: 'Labels',
+        assignees: 'Assignees'
+      },
+      placeholders: {
+        titleZh: 'e.g. Login state breaks across tabs',
+        titleEn: 'e.g. Auth state breaks across tabs',
+        summaryZh: 'Describe problem, repro steps, expected result',
+        summaryEn: 'Describe problem, repro steps, expected result',
+        project: 'e.g. HookCode'
+      },
+      cancel: 'Cancel',
+      create: 'Create issue',
+      creating: 'Creating…',
+      validationTitleRequired: 'Please fill at least one title (Chinese or English).',
+      validationUserRequired: 'No users available; cannot create an issue.',
+      summaryFallback: '(No summary provided)'
     },
     empty: {
       title: 'No matching issues',

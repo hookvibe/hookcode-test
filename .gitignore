@@ -17,5 +17,12 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# python
+__pycache__/
+*.pyc
+
+# codex/harness artifacts
+.codex_prompt.txt
+
 # OS
 .DS_Store

@@ -7,8 +7,9 @@ import { StatsBar } from './components/StatsBar';
 import { issueData, labelCatalog, userCatalog } from './data/issues';
 import { getCopy, I18nProvider } from './i18n';
 import { IssueDetailPage } from './pages/IssueDetailPage';
+import { NewIssuePage } from './pages/NewIssuePage';
 import type { Issue, IssueStatus, Language, Theme } from './types';
-import { getIssueIdFromRoute, issueDetailHash, listHash } from './utils/hashRoute';
+import { getIssueIdFromRoute, isNewIssueRoute, issueDetailHash, listHash, newIssueHash } from './utils/hashRoute';
 
 const buildLabelCounts = (issues: Issue[]) => {
   return issues.reduce<Record<string, number>>((acc, issue) => {
@@ -54,6 +55,8 @@ export default function App() {
   const [hash, setHash] = useState(() => (typeof window === 'undefined' ? '' : window.location.hash));
   const initialIssueId = useMemo(() => getIssueIdFromRoute(hash), [hash]);
 
+  const [issues, setIssues] = useState<Issue[]>(() => issueData);
+
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === 'undefined') return 'system';
     const stored = window.localStorage.getItem('theme');
@@ -79,9 +82,10 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(initialIssueId ?? issueData[0]?.id ?? '');
 
   const copy = useMemo(() => getCopy(language), [language]);
-  const labelCounts = useMemo(() => buildLabelCounts(issueData), []);
+  const labelCounts = useMemo(() => buildLabelCounts(issues), [issues]);
   const resolvedTheme = theme === 'system' ? systemTheme : theme;
   const routeIssueId = useMemo(() => getIssueIdFromRoute(hash), [hash]);
+  const creatingIssue = useMemo(() => isNewIssueRoute(hash), [hash]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -117,7 +121,7 @@ export default function App() {
   }, [language]);
 
   const filteredIssues = useMemo(() => {
-    const filtered = issueData.filter((issue) => {
+    const filtered = issues.filter((issue) => {
       const statusMatch = statusFilter === 'all' || issue.status === statusFilter;
       const labelMatch = labelFilter === 'all' || issue.labels.some((label) => label.id === labelFilter);
       const assigneeMatch =
@@ -126,21 +130,26 @@ export default function App() {
     });
 
     return sortIssues(filtered, sortKey);
-  }, [assigneeFilter, copy.labelNames, labelFilter, query, sortKey, statusFilter]);
+  }, [assigneeFilter, copy.labelNames, issues, labelFilter, query, sortKey, statusFilter]);
 
   const openCount = filteredIssues.filter((issue) => issue.status === 'open').length;
   const closedCount = filteredIssues.filter((issue) => issue.status === 'closed').length;
   const routeIssue = useMemo(
-    () => (routeIssueId ? issueData.find((issue) => issue.id === routeIssueId) ?? null : null),
-    [routeIssueId]
+    () => (routeIssueId ? issues.find((issue) => issue.id === routeIssueId) ?? null : null),
+    [issues, routeIssueId]
   );
   const routeIssueIndex = useMemo(() => {
     if (!routeIssueId) return -1;
-    return issueData.findIndex((issue) => issue.id === routeIssueId);
-  }, [routeIssueId]);
-  const previousIssue = routeIssueIndex > 0 ? issueData[routeIssueIndex - 1] : null;
+    return issues.findIndex((issue) => issue.id === routeIssueId);
+  }, [issues, routeIssueId]);
+  const previousIssue = routeIssueIndex > 0 ? issues[routeIssueIndex - 1] : null;
   const nextIssue =
-    routeIssueIndex >= 0 && routeIssueIndex < issueData.length - 1 ? issueData[routeIssueIndex + 1] : null;
+    routeIssueIndex >= 0 && routeIssueIndex < issues.length - 1 ? issues[routeIssueIndex + 1] : null;
+
+  const nextIssueNumber = useMemo(() => {
+    const maxNumber = issues.reduce((max, issue) => Math.max(max, issue.number), 0);
+    return maxNumber + 1;
+  }, [issues]);
 
   useEffect(() => {
     if (!routeIssueId) return;
@@ -157,21 +166,24 @@ export default function App() {
           onQueryChange={setQuery}
           theme={theme}
           onThemeChange={setTheme}
+          onNewIssue={() => {
+            window.location.hash = newIssueHash();
+          }}
         />
-        <div className={`layout ${routeIssueId ? 'layout-single' : 'layout-two'}`}>
-          {!routeIssueId ? (
+        <div className={`layout ${routeIssueId || creatingIssue ? 'layout-single' : 'layout-two'}`}>
+          {!routeIssueId && !creatingIssue ? (
             <Sidebar
               labels={labelCatalog}
               activeLabel={labelFilter}
               labelCounts={labelCounts}
               onLabelChange={(value) => {
                 setLabelFilter(value);
-                setSelectedId(issueData[0]?.id ?? '');
+                setSelectedId(issues[0]?.id ?? '');
               }}
             />
           ) : null}
           <main className="main">
-            {!routeIssueId ? (
+            {!routeIssueId && !creatingIssue ? (
               <>
                 <div className="page-header">
                   <div>
@@ -186,7 +198,13 @@ export default function App() {
                     <button className="ghost-button" type="button">
                       {copy.page.filters}
                     </button>
-                    <button className="primary-button" type="button">
+                    <button
+                      className="primary-button"
+                      type="button"
+                      onClick={() => {
+                        window.location.hash = newIssueHash();
+                      }}
+                    >
                       {copy.page.newIssue}
                     </button>
                   </div>
@@ -196,7 +214,7 @@ export default function App() {
                   statusFilter={statusFilter}
                   onStatusChange={(value) => {
                     setStatusFilter(value);
-                    setSelectedId(issueData[0]?.id ?? '');
+                    setSelectedId(issues[0]?.id ?? '');
                   }}
                   labelFilter={labelFilter}
                   onLabelChange={setLabelFilter}
@@ -214,8 +232,25 @@ export default function App() {
                     setSelectedId(id);
                     window.location.hash = issueDetailHash(id);
                   }}
+                  onCreateIssue={() => {
+                    window.location.hash = newIssueHash();
+                  }}
                 />
               </>
+            ) : creatingIssue ? (
+              <NewIssuePage
+                labels={labelCatalog}
+                users={userCatalog}
+                nextNumber={nextIssueNumber}
+                onCancel={() => {
+                  window.location.hash = listHash();
+                }}
+                onCreate={(issue) => {
+                  setIssues((current) => [issue, ...current]);
+                  setSelectedId(issue.id);
+                  window.location.hash = issueDetailHash(issue.id);
+                }}
+              />
             ) : (
               <IssueDetailPage
                 issue={routeIssue}

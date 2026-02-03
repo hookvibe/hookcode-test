@@ -7,9 +7,10 @@ interface HeaderProps {
   onQueryChange: (value: string) => void;
   theme: Theme;
   onThemeChange: (theme: Theme) => void;
+  onNewIssue: () => void;
 }
 
-export const Header = ({ query, onQueryChange, theme, onThemeChange }: HeaderProps) => {
+export const Header = ({ query, onQueryChange, theme, onThemeChange, onNewIssue }: HeaderProps) => {
   const { copy, language, setLanguage } = useI18n();
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     onQueryChange(event.target.value);
@@ -94,7 +95,7 @@ export const Header = ({ query, onQueryChange, theme, onThemeChange }: HeaderPro
           <span className="dot" />
           {copy.header.activity}
         </button>
-        <button className="primary-button" type="button">
+        <button className="primary-button" type="button" onClick={onNewIssue}>
           {copy.header.newIssue}
         </button>
         <div className="avatar" aria-label={copy.header.currentUser}>

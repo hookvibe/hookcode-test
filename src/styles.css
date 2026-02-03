@@ -357,6 +357,189 @@ select:focus-visible {
   background: linear-gradient(140deg, var(--highlight-start), var(--highlight-end));
 }
 
+.ui-change-highlight {
+  border-color: color-mix(in srgb, var(--accent) 38%, var(--border-panel));
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--accent) 14%, transparent),
+    var(--shadow-soft);
+  background-image:
+    linear-gradient(140deg, color-mix(in srgb, var(--accent) 12%, transparent), transparent 58%),
+    linear-gradient(140deg, var(--highlight-start), var(--highlight-end));
+  background-blend-mode: overlay, normal;
+}
+
+.highlight-callout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  border: 1px solid var(--border-panel);
+  margin: 16px 0 8px;
+}
+
+.highlight-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  margin-top: 4px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  flex: 0 0 auto;
+}
+
+.highlight-callout p {
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.new-issue-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.new-issue-preview {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border-dashed);
+  background: color-mix(in srgb, var(--bg-elevated) 80%, transparent);
+  min-width: min(320px, 100%);
+}
+
+.new-issue-preview-kicker {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.new-issue-preview-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.new-issue-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-row.form-row-compact {
+  grid-template-columns: minmax(0, 1fr) 220px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field-label {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.field-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-panel);
+  background: var(--bg-elevated);
+  color: var(--text);
+}
+
+.field-textarea {
+  width: 100%;
+  min-height: 112px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-panel);
+  background: var(--bg-soft);
+  color: var(--text);
+  resize: vertical;
+  font-family: inherit;
+}
+
+.pill-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.select-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--ghost-bg);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: background 0.18s ease, border 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.select-pill:hover {
+  background: var(--ghost-hover);
+}
+
+.select-pill.selected {
+  background: color-mix(in srgb, var(--pill, var(--primary)) 14%, transparent);
+  border-color: color-mix(in srgb, var(--pill, var(--primary)) 40%, transparent);
+  box-shadow: 0 12px 22px color-mix(in srgb, var(--pill, var(--primary)) 18%, transparent);
+}
+
+.select-pill-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--pill, var(--primary));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pill, var(--primary)) 18%, transparent);
+}
+
+.select-pill-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border-panel);
+  background: var(--bg-elevated);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.form-alert {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, transparent);
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .nav-list {
   display: grid;
   gap: 8px;
@@ -942,6 +1125,11 @@ select:focus-visible {
   .filter-controls {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .form-row,
+  .form-row.form-row-compact {
+    grid-template-columns: 1fr;
   }
 }
 
