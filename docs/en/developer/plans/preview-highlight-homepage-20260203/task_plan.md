@@ -5,7 +5,7 @@
 Verify that `hookcode-preview-highlight` can reliably highlight key homepage UI elements in the task-group preview by sending a sequence of highlight requests (one selector at a time).
 
 ## Current Phase
-Phase 4 - Delivery
+Completed
 
 ## Phases
 
@@ -25,9 +25,9 @@ Phase 4 - Delivery
 - **Status:** complete
 
 ### Phase 4: Delivery
-- [ ] Update changelog entry for traceability
-- [ ] Commit directly to `main`
-- **Status:** in_progress
+- [x] Update changelog entry for traceability
+- [x] Commit directly to `main`
+- **Status:** complete
 
 ## Key Questions
 - Do highlight requests reach the preview bridge (non-zero subscribers)?

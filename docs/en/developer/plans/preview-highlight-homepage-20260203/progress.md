@@ -17,3 +17,4 @@
 - Ran `scripts/preview_highlight_homepage_all.mjs` to sweep 74 selectors; every request returned `201 Created` with `subscribers = 1`.
 - Command used:
   - `set -a; source ../.env; set +a; node scripts/preview_highlight_homepage_all.mjs --delay 200 --padding 6 --scroll true`
+- Delivered by committing directly to `main` after updating the changelog.
